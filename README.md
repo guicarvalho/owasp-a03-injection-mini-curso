@@ -22,6 +22,7 @@ Após instalar todas as bibliotecas, vamos criar o banco de dados e rodar o serv
 
 ```sh
 python manage.py migrate
+python manage.py loaddata users.json
 python manage.py runserver
 ```
 

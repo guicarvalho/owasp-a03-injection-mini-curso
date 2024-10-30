@@ -14,9 +14,8 @@
   </style>
   <body>
     <div class="tip">
+      <h3>Os comandos abaixo não funcionam, o Django ORM automaticamente escapa os parâmetros.</h3>
       <p>Para listar todos os usuários: <code>admin' OR '1'='1</code></p>
-
-      <h3>Os comandos abaixo não funcionam devido ao comportamento do execute, porém podemos testar com executescript</h3>
       <p>Para manipular dados (com UPDATE): <code>admin'; UPDATE users_user SET phone='000000' WHERE name='admin' --</code></p>
       <p>Para excluir dados (com DELETE): <code>admin'; DELETE FROM users_user WHERE '1'='1' --</code></p>
     </div>
@@ -34,9 +33,9 @@
     <ul>
       {% for user in users %}
           <li>
-            Nome: {{ user.1 }} <br>
-            Telefone: {{ user.2 }} <br>
-            E-mail: {{ user.3 }} <br>
+            Nome: {{ user.name }} <br>
+            Telefone: {{ user.phone }} <br>
+            E-mail: {{ user.email }} <br>
           </li>
           <hr>
       {% endfor %}

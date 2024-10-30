@@ -1,3 +1,4 @@
+import bleach
 from django.shortcuts import redirect, render
 
 from .models import User
@@ -10,9 +11,10 @@ def list_users(request):
 
 def create_user(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        email = request.POST.get("email")
+        # Sanitiza os campos para remover scripts ou tags perigosas
+        name = bleach.clean(request.POST.get("name"), tags=[], strip=True)
+        phone = bleach.clean(request.POST.get("phone"), tags=[], strip=True)
+        email = bleach.clean(request.POST.get("email"), tags=[], strip=True)
 
         # Criação de usuário sem sanitização do campo 'name'
         User.objects.create(name=name, phone=phone, email=email)
